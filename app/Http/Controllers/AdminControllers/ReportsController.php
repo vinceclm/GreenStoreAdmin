@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers\AdminControllers;
 
 use App;
@@ -25,7 +26,8 @@ use App\Models\Core\DeliveryBoys;
 
 class ReportsController extends Controller
 {
-    public function __construct(Reports $reports, Setting $setting, Customers $customers, Products $products,Currency $currency) {
+    public function __construct(Reports $reports, Setting $setting, Customers $customers, Products $products, Currency $currency)
+    {
         $this->reports = $reports;
         $this->myVarsetting = new SiteSettingController($setting);
         $this->myVaralter = new AlertController($setting);
@@ -42,38 +44,35 @@ class ReportsController extends Controller
 
         $title = array('pageTitle' => Lang::get("labels.CustomerOrdersTotal"));
 
-        
-        if(isset($request->customers_id) || isset($request->orderid) ){
+
+        if (isset($request->customers_id) || isset($request->orderid)) {
             $result['price'] = $this->reports->customersReportTotal($request);
             $result['reports'] = $this->reports->customersReport($request);
-        }
-        
-        else{
+        } else {
             $result['price'] = 0;
             $result['reports'] = array('orders' => [], 'total_price' => 0);
         }
-        
-        
+
+
         $result['customers'] = $this->Customers->getter();
         $result['orderstatus'] = $this->reports->allorderstatuses();
         $result['currency'] = $this->Currency->getter();
-       // $result['deliveryboys'] = $this->DeliveryBoys->getter();
+        // $result['deliveryboys'] = $this->DeliveryBoys->getter();
         $myVar = new SiteSettingController();
         $result['setting'] = $myVar->getSetting();
         $result['commonContent'] = $myVar->Setting->commonContent();
-        
-        return view("admin.reports.statsCustomers", $title)->with('result', $result);
 
+        return view("admin.reports.statsCustomers", $title)->with('result', $result);
     }
 
     public function customerOrdersPrint(Request $request)
     {
 
         $title = array('pageTitle' => Lang::get("labels.CustomerOrdersTotal"));
-        
+
         $result['reports'] = $this->reports->customersReport($request);
         $result['price'] = $this->reports->customersReportTotal($request);
-        
+
         $result['customers'] = $this->Customers->getter();
         $result['orderstatus'] = $this->reports->allorderstatuses();
         $result['deliveryboys'] = $this->DeliveryBoys->getter();
@@ -83,9 +82,8 @@ class ReportsController extends Controller
         $result['commonContent'] = $myVar->Setting->commonContent();
 
         return view("admin.reports.statsCustomersinvoice", $title)->with('result', $result);
-
     }
-    
+
     public function couponReport(Request $request)
     {
         $title = array('pageTitle' => Lang::get("labels.CustomerOrdersTotal"));
@@ -95,9 +93,8 @@ class ReportsController extends Controller
         $myVar = new SiteSettingController();
         $result['setting'] = $myVar->getSetting();
         $result['commonContent'] = $myVar->Setting->commonContent();
-        
-        return view("admin.reports.couponreport", $title)->with('result', $result);
 
+        return view("admin.reports.couponreport", $title)->with('result', $result);
     }
 
     public function couponReportPrint(Request $request)
@@ -109,9 +106,8 @@ class ReportsController extends Controller
         $myVar = new SiteSettingController();
         $result['setting'] = $myVar->getSetting();
         $result['commonContent'] = $myVar->Setting->commonContent();
-        
-        return view("admin.reports.couponreportinvoice", $title)->with('result', $result);
 
+        return view("admin.reports.couponreportinvoice", $title)->with('result', $result);
     }
 
     public function salesreport(Request $request)
@@ -119,18 +115,18 @@ class ReportsController extends Controller
         $title = array('pageTitle' => Lang::get("labels.Sales Report"));
         $result['reports'] = $this->reports->salesreport($request);
         $result['price'] = $this->reports->customersReportTotal($request);
-        
+
         $result['customers'] = $this->Customers->getter();
         $result['orderstatus'] = $this->reports->allorderstatuses();
         $result['currency'] = $this->Currency->getter();
         $myVar = new SiteSettingController();
         $result['setting'] = $myVar->getSetting();
         $result['commonContent'] = $myVar->Setting->commonContent();
-        
+
         return view("admin.reports.salesreport", $title)->with('result', $result);
     }
 
-    
+
 
     //statsProductsPurchased
     public function inventoryreport(Request $request)
@@ -139,12 +135,12 @@ class ReportsController extends Controller
 
         $result['reports'] = $this->reports->inventoryreport($request);
         // dd($result['reports']);
-        $result['products'] = $this->Products->getter();   
-                
+        $result['products'] = $this->Products->getter();
+
         $myVar = new SiteSettingController();
         $result['currency'] = $myVar->getSetting();
         $result['commonContent'] = $myVar->Setting->commonContent();
-        
+
         return view("admin.reports.inventoryreport", $title)->with('result', $result);
         // return view("admin.reports.statsProductsPurchased", $title)->with('result', $result);
     }
@@ -154,12 +150,12 @@ class ReportsController extends Controller
         $title = array('pageTitle' => Lang::get("labels.Inventory Report"));
 
         $result['reports'] = $this->reports->inventoryreport($request);
-        $result['products'] = $this->Products->getter();   
-                
+        $result['products'] = $this->Products->getter();
+
         $myVar = new SiteSettingController();
         $result['currency'] = $myVar->getSetting();
         $result['commonContent'] = $myVar->Setting->commonContent();
-        
+
         return view("admin.reports.inventoryreportprint", $title)->with('result', $result);
     }
 
@@ -173,7 +169,7 @@ class ReportsController extends Controller
         $myVar = new SiteSettingController();
         $result['currency'] = $myVar->getSetting();
         $result['commonContent'] = $myVar->Setting->commonContent();
-        
+
         return view("admin.reports.minstock", $title)->with('result', $result);
     }
 
@@ -186,7 +182,7 @@ class ReportsController extends Controller
         $myVar = new SiteSettingController();
         $result['currency'] = $myVar->getSetting();
         $result['commonContent'] = $myVar->Setting->commonContent();
-        
+
         return view("admin.reports.minstockprint", $title)->with('result', $result);
     }
 
@@ -199,10 +195,10 @@ class ReportsController extends Controller
         $myVar = new SiteSettingController();
         $result['currency'] = $myVar->getSetting();
         $result['commonContent'] = $myVar->Setting->commonContent();
-        
+
         return view("admin.reports.maxstock", $title)->with('result', $result);
     }
-    
+
 
     public function maxstockprint(Request $request)
     {
@@ -213,7 +209,7 @@ class ReportsController extends Controller
         $myVar = new SiteSettingController();
         $result['currency'] = $myVar->getSetting();
         $result['commonContent'] = $myVar->Setting->commonContent();
-        
+
         return view("admin.reports.maxstockprint", $title)->with('result', $result);
     }
 
@@ -236,13 +232,13 @@ class ReportsController extends Controller
         $result['reports'] = $this->reports->outofstock($request);
         $variableProduct = DB::select(DB::raw("SELECT inventory_detail.*,products_description.products_name , products_attributes.options_id,products_options_values_descriptions.options_values_name, SUM(CASE WHEN stock_type = 'in' THEN stock ELSE 0 END) AS instocksum,SUM(CASE WHEN stock_type = 'out' THEN stock ELSE 0 END) AS outstocksum,(SUM(CASE WHEN stock_type = 'in' THEN stock ELSE 0 END)-SUM(CASE WHEN stock_type = 'out' THEN stock ELSE 0 END)) as finalstock FROM `inventory` LEFT JOIN inventory_detail on inventory.inventory_ref_id = inventory_detail.inventory_ref_id LEFT JOIN products_attributes ON products_attributes.products_attributes_id = inventory_detail.attribute_id LEFT JOIN products_options_values_descriptions ON products_options_values_descriptions.products_options_values_descriptions_id = products_attributes.options_values_id LEFT JOIN products_description ON products_description.products_id = inventory_detail.products_id GROUP by attribute_id DESC"));
         $out_of_stock_variable_product = array();
-        foreach($variableProduct as $vproduct){
-            if($vproduct->finalstock == 0){
+        foreach ($variableProduct as $vproduct) {
+            if ($vproduct->finalstock == 0) {
                 $out_of_stock_variable_product[] = $vproduct;
             }
-        } 
+        }
         $result['variable_product_reports'] = $out_of_stock_variable_product;
-        
+
         $myVar = new SiteSettingController();
         $result['currency'] = $myVar->getSetting();
         $result['commonContent'] = $myVar->Setting->commonContent();
@@ -272,10 +268,9 @@ class ReportsController extends Controller
 
         $result['commonContent'] = $myVar->Setting->commonContent();
         return view("admin.reports.statsProductsLiked", $title)->with('result', $result);
-
     }
 
-    
+
 
     //lowinstock
     public function lowinstock(Request $request)
@@ -286,7 +281,7 @@ class ReportsController extends Controller
 
         $products = DB::table('products')
             ->leftJoin('products_description', 'products_description.products_id', '=', 'products.products_id')
-        //->leftJoin('inventory','inventory.products_id','=','products.products_id')
+            //->leftJoin('inventory','inventory.products_id','=','products.products_id')
             ->where('products_description.language_id', '=', $language_id)
             ->orderBy('products.products_id', 'DESC')
             ->get();
@@ -299,7 +294,6 @@ class ReportsController extends Controller
         foreach ($products as $product) {
 
             if ($product->products_type == 1) {
-
             } elseif ($product->products_type == 0 or $product->products_type == 2) {
                 $inventories = DB::table('inventory')->where('products_id', $product->products_id)->get();
                 $stockIn = 0;
@@ -326,7 +320,6 @@ class ReportsController extends Controller
                 if ($stocks <= $min_level) {
                     array_push($products_array, $product);
                 }
-
             }
         }
 
@@ -378,7 +371,6 @@ class ReportsController extends Controller
         $result['commonContent'] = $myVar->Setting->commonContent();
 
         return view("admin.reports.stockin", $title)->with('result', $result);
-
     }
 
     public function getFormattedDate($reportBase)
@@ -397,7 +389,7 @@ class ReportsController extends Controller
         //$reportBase = 'last_year';
 
         if ($reportBase == 'this_month') {
-            
+
 
             $dateLimit = date('d', $date);
 
@@ -406,11 +398,11 @@ class ReportsController extends Controller
 
                 $dateFrom = date('Y-m-' . $j . ' 00:00:00', time());
                 $dateTo = date('Y-m-' . $j . ' 23:59:59', time());
-                
+
                 $totalSale = DB::table('orders')
                     ->whereBetween('date_purchased', [$dateFrom, $dateTo])
                     ->where('ordered_source', 1)
-                    ->count(); 
+                    ->count();
                 $producQuantity = DB::table('orders')
                     ->whereBetween('date_purchased', [$dateFrom, $dateTo])
                     ->where('ordered_source', 2)
@@ -418,15 +410,13 @@ class ReportsController extends Controller
 
                 $customers = DB::table('users')
                     ->whereBetween('created_at', [$dateFrom, $dateTo])
-                    ->count(); 
+                    ->count();
                 $saleData[$j - 1]['date'] = date('h a', strtotime($dateFrom));
                 $saleData[$j - 1]['totalSale'] = $totalSale;
                 $saleData[$j - 1]['productQuantity'] = $producQuantity;
                 $saleData[$j - 1]['customers'] = $customers;
             }
-
-        } 
-        else if ($reportBase == 'last_month') {
+        } else if ($reportBase == 'last_month') {
             $datePrevStart = date("Y-n-j", strtotime("first day of previous month"));
             $datePrevEnd = date("Y-n-j", strtotime("last day of previous month"));
 
@@ -441,26 +431,24 @@ class ReportsController extends Controller
                 $totalSale = DB::table('orders')
                     ->whereBetween('date_purchased', [$dateFrom, $dateTo])
                     ->where('ordered_source', 1)
-                    ->count(); 
+                    ->count();
                 $producQuantity = DB::table('orders')
                     ->whereBetween('date_purchased', [$dateFrom, $dateTo])
                     ->where('ordered_source', 2)
-                    ->count(); 
+                    ->count();
 
 
                 //website orders
 
                 $customers = DB::table('users')
                     ->whereBetween('created_at', [$dateFrom, $dateTo])
-                    ->count(); 
+                    ->count();
                 $saleData[$j - 1]['date'] = date('h a', strtotime($dateFrom));
                 $saleData[$j - 1]['totalSale'] = $totalSale;
                 $saleData[$j - 1]['productQuantity'] = $producQuantity;
                 $saleData[$j - 1]['customers'] = $customers;
             }
-
-        } 
-        else if ($reportBase == 'last_year') {
+        } else if ($reportBase == 'last_year') {
 
             $dateLimit = date("Y", strtotime("-1 year"));
 
@@ -476,22 +464,21 @@ class ReportsController extends Controller
                 $totalSale = DB::table('orders')
                     ->whereBetween('date_purchased', [$dateFrom, $dateTo])
                     ->where('ordered_source', 1)
-                    ->count(); 
+                    ->count();
                 $producQuantity = DB::table('orders')
                     ->whereBetween('date_purchased', [$dateFrom, $dateTo])
                     ->where('ordered_source', 2)
-                    ->count(); 
+                    ->count();
 
                 $customers = DB::table('users')
                     ->whereBetween('created_at', [$dateFrom, $dateTo])
-                    ->count(); 
+                    ->count();
                 $saleData[$j - 1]['date'] = date('h a', strtotime($dateFrom));
                 $saleData[$j - 1]['totalSale'] = $totalSale;
                 $saleData[$j - 1]['productQuantity'] = $producQuantity;
                 $saleData[$j - 1]['customers'] = $customers;
             }
-        } 
-        else {
+        } else {
             $reportBase = str_replace('dateRange', '', $reportBase);
             $reportBase = str_replace('=', '', $reportBase);
             $reportBase = str_replace('-', '/', $reportBase);
@@ -523,16 +510,16 @@ class ReportsController extends Controller
 
                     //sold products
                     $totalSale = DB::table('orders')
-                    ->whereBetween('date_purchased', [$dateFrom, $dateTo])
-                    ->where('ordered_source', 1)
-                    ->count(); 
+                        ->whereBetween('date_purchased', [$dateFrom, $dateTo])
+                        ->where('ordered_source', 1)
+                        ->count();
                     $producQuantity = DB::table('orders')
-                    ->whereBetween('date_purchased', [$dateFrom, $dateTo])
-                    ->where('ordered_source', 2)
-                    ->count(); 
+                        ->whereBetween('date_purchased', [$dateFrom, $dateTo])
+                        ->where('ordered_source', 2)
+                        ->count();
                     $customers = DB::table('users')
                         ->whereBetween('created_at', [$dateFrom, $dateTo])
-                        ->count(); 
+                        ->count();
                     $saleData[$j - 1]['date'] = date('h a', strtotime($dateFrom));
                     $saleData[$j - 1]['totalSale'] = $totalSale;
                     $saleData[$j - 1]['productQuantity'] = $producQuantity;
@@ -540,9 +527,7 @@ class ReportsController extends Controller
                     //print $dateLimitFrom.'<br>';
 
                 }
-
-            } 
-            else if ($days > 1 && $years == 0 && $months == 0) {
+            } else if ($days > 1 && $years == 0 && $months == 0) {
 
                 //print 'daily';
 
@@ -566,27 +551,26 @@ class ReportsController extends Controller
 
                     //sold products
                     $totalSale = DB::table('orders')
-                    ->whereBetween('date_purchased', [$dateFrom, $dateTo])
-                    ->where('ordered_source', 1)
-                    ->count();
+                        ->whereBetween('date_purchased', [$dateFrom, $dateTo])
+                        ->where('ordered_source', 1)
+                        ->count();
 
                     $producQuantity = DB::table('orders')
                         ->whereBetween('date_purchased', [$dateFrom, $dateTo])
                         ->where('ordered_source', 2)
-                        ->count();  
+                        ->count();
                     $customers = DB::table('users')
                         ->whereBetween('created_at', [$dateFrom, $dateTo])
-                        ->count(); 
+                        ->count();
                     $saleData[$j - 1]['date'] = date('d M', strtotime($dateFrom));
-                    $saleData[$j - 1]['totalSale'] = $totalSale;                    
+                    $saleData[$j - 1]['totalSale'] = $totalSale;
                     $saleData[$j - 1]['productQuantity'] = $producQuantity;
                     $saleData[$j - 1]['customers'] = $customers;
-                    
+
                     //print $dateLimitFrom.'<br>';
                     if ($dateLimitFrom == $lastday) {
                         $dateLimitFrom = '1';
                         $selectedMonth++;
-
                     } else {
                         $dateLimitFrom++;
                     }
@@ -596,8 +580,7 @@ class ReportsController extends Controller
                         $selectedYear++;
                     }
                 }
-            } 
-            else if ($months >= 1 && $years == 0) {
+            } else if ($months >= 1 && $years == 0) {
 
                 //for check if date range enter into another month
                 if ($days > 0) {
@@ -625,22 +608,22 @@ class ReportsController extends Controller
 
                     //sold products
                     $totalSale = DB::table('orders')
-                    ->whereBetween('date_purchased', [$dateFrom, $dateTo])
-                    ->where('ordered_source', 1)
-                    ->count(); 
+                        ->whereBetween('date_purchased', [$dateFrom, $dateTo])
+                        ->where('ordered_source', 1)
+                        ->count();
                     $producQuantity = DB::table('orders')
-                    ->whereBetween('date_purchased', [$dateFrom, $dateTo])
-                    ->where('ordered_source', 2)
-                    ->count(); 
+                        ->whereBetween('date_purchased', [$dateFrom, $dateTo])
+                        ->where('ordered_source', 2)
+                        ->count();
                     $customers = DB::table('users')
-                    ->whereBetween('created_at', [$dateFrom, $dateTo])
-                    ->count(); 
+                        ->whereBetween('created_at', [$dateFrom, $dateTo])
+                        ->count();
 
                     $saleData[$i]['date'] = date('M Y', strtotime($dateFrom));
                     $saleData[$i]['totalSale'] = $totalSale;
                     $saleData[$i]['productQuantity'] = $producQuantity;
                     $saleData[$i]['customers'] = $customers;
-                    
+
                     $selectedMonth++;
                     if ($selectedMonth > 12) {
                         $selectedMonth = '1';
@@ -648,9 +631,7 @@ class ReportsController extends Controller
                     }
                     $i++;
                 }
-
-            } 
-            else if ($years >= 1) {
+            } else if ($years >= 1) {
 
                 //print $years.'sadsa';
                 if ($months > 0) {
@@ -698,16 +679,16 @@ class ReportsController extends Controller
 
                     //sold products
                     $totalSale = DB::table('orders')
-                    ->whereBetween('date_purchased', [$dateFrom, $dateTo])
-                    ->where('ordered_source', 1)
-                    ->count(); 
-                $producQuantity = DB::table('orders')
-                    ->whereBetween('date_purchased', [$dateFrom, $dateTo])
-                    ->where('ordered_source', 2)
-                    ->count();
-                $customers = DB::table('users')
-                    ->whereBetween('created_at', [$dateFrom, $dateTo])
-                    ->count(); 
+                        ->whereBetween('date_purchased', [$dateFrom, $dateTo])
+                        ->where('ordered_source', 1)
+                        ->count();
+                    $producQuantity = DB::table('orders')
+                        ->whereBetween('date_purchased', [$dateFrom, $dateTo])
+                        ->where('ordered_source', 2)
+                        ->count();
+                    $customers = DB::table('users')
+                        ->whereBetween('created_at', [$dateFrom, $dateTo])
+                        ->count();
 
                     $saleData[$i]['date'] = date('Y', strtotime($dateFrom));
                     $saleData[$i]['totalSale'] = $totalSale;
@@ -715,12 +696,11 @@ class ReportsController extends Controller
                     $saleData[$i]['customers'] = $customers;
                     $i++;
                 }
-
             }
         }
         return $saleData;
     }
-    
+
     public function driversreport(Request $request)
     {
         $title = array('pageTitle' => Lang::get("labels.Drivers Report"));
@@ -737,51 +717,51 @@ class ReportsController extends Controller
 
     public function driverreportsdetail(Request $request)
     {
-        
-            $title = array('pageTitle' => Lang::get("labels.Drivers Report Detail"));
-    
-            $data = DB::table('orders')
-                ->join('orders_products', 'orders_products.orders_id', '=', 'orders.orders_id')
-                ->leftjoin('orders_status_history', 'orders_status_history.orders_id', '=', 'orders_products.orders_id')
-                ->leftjoin('orders_status_description', 'orders_status_description.orders_status_id', '=', 'orders_status_history.orders_status_id')
-                ->select('orders.*', 'orders_status_history.*', 'orders_products.*', 'orders_status_description.orders_status_name')
-                ->where('orders_status_history.orders_status_id', '=', 2)
-                ->where('orders_status_description.language_id', '=', 1)
-                ->orderby('orders_status_history.date_added', 'DESC')->groupby('orders_status_history.orders_id')
-                ->orderby('orders.orders_id', 'DESC')
-                ->orwhere('orders_status_history.orders_status_id', '=', 3)
-                ->where('orders_status_description.language_id', '=', 1)
-                ->orderby('orders_status_history.date_added', 'DESC')->groupby('orders_status_history.orders_id')
-                ->orderby('orders.orders_id', 'DESC')
-                ->get();
-            $totalsale = 0;
-            $index = 0;
-            $totaladmincommision = 0;
-            $totalvendorearning = 0;
-            $alldata = array();
-            foreach ($data as $content) {
-                $content->final_price = $content->products_quantity * $content->final_price;
-                $deliveryboy = DB::table('orders_to_delivery_boy')
-                    ->leftjoin('users', 'users.id', '=', 'orders_to_delivery_boy.deliveryboy_id')
-                    ->select('users.*')
-                    ->where('orders_id', $content->orders_id)
-                    ->where('orders_to_delivery_boy.deliveryboy_id', $request->id)
-                    ->where('is_current', 1)
-                    ->first();
-                if ($deliveryboy) {
-                    array_push($alldata, $content);
-                    $totalsale += $content->final_price;
-                    $product_price = $content->final_price;
-                    
-                    $alldata[$index]->deliveryboy_name = $deliveryboy->first_name . ' ' . $deliveryboy->last_name;
-                    $alldata[$index]->deliveryboy_id = $deliveryboy->id;
-                    $index++;
-                }
+
+        $title = array('pageTitle' => Lang::get("labels.Drivers Report Detail"));
+
+        $data = DB::table('orders')
+            ->join('orders_products', 'orders_products.orders_id', '=', 'orders.orders_id')
+            ->leftjoin('orders_status_history', 'orders_status_history.orders_id', '=', 'orders_products.orders_id')
+            ->leftjoin('orders_status_description', 'orders_status_description.orders_status_id', '=', 'orders_status_history.orders_status_id')
+            ->select('orders.*', 'orders_status_history.*', 'orders_products.*', 'orders_status_description.orders_status_name')
+            ->where('orders_status_history.orders_status_id', '=', 2)
+            ->where('orders_status_description.language_id', '=', 1)
+            ->orderby('orders_status_history.date_added', 'DESC')->groupby('orders_status_history.orders_id')
+            ->orderby('orders.orders_id', 'DESC')
+            ->orwhere('orders_status_history.orders_status_id', '=', 3)
+            ->where('orders_status_description.language_id', '=', 1)
+            ->orderby('orders_status_history.date_added', 'DESC')->groupby('orders_status_history.orders_id')
+            ->orderby('orders.orders_id', 'DESC')
+            ->get();
+        $totalsale = 0;
+        $index = 0;
+        $totaladmincommision = 0;
+        $totalvendorearning = 0;
+        $alldata = array();
+        foreach ($data as $content) {
+            $content->final_price = $content->products_quantity * $content->final_price;
+            $deliveryboy = DB::table('orders_to_delivery_boy')
+                ->leftjoin('users', 'users.id', '=', 'orders_to_delivery_boy.deliveryboy_id')
+                ->select('users.*')
+                ->where('orders_id', $content->orders_id)
+                ->where('orders_to_delivery_boy.deliveryboy_id', $request->id)
+                ->where('is_current', 1)
+                ->first();
+            if ($deliveryboy) {
+                array_push($alldata, $content);
+                $totalsale += $content->final_price;
+                $product_price = $content->final_price;
+
+                $alldata[$index]->deliveryboy_name = $deliveryboy->first_name . ' ' . $deliveryboy->last_name;
+                $alldata[$index]->deliveryboy_id = $deliveryboy->id;
+                $index++;
             }
-    
-    
+        }
+
+
         $result['reportdata'] = $alldata;
-                 
+
 
         $myVar = new SiteSettingController();
         $result['setting'] = $myVar->getSetting();
