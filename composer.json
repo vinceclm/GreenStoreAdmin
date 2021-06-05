@@ -29,6 +29,7 @@
         "spatie/db-dumper": "^2.14"
     },
     "require-dev": {
+        "barryvdh/laravel-ide-helper": "2.8.2",
         "beyondcode/laravel-dump-server": "^1.0",
         "filp/whoops": "^2.0",
         "fzaninotto/faker": "^1.4",

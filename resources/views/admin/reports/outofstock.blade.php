@@ -82,7 +82,7 @@
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-md-6 text-right">
-                                            {{ $result['reports']->appends(\Request::except('type'))->render() }}
+                                            {{ $result['reports']->setPath('/admin/outofstock')->appends(\Request::except('type'))->render() }}
                                         </div>
                                 </div>
 

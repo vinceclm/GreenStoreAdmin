@@ -27,6 +27,10 @@ class AppServiceProvider extends ServiceProvider
     {
         Schema::defaultStringLength(191);
 
+        if ($this->app->environment() !== 'production') {
+            $this->app->register(\Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class);
+        }
+
         if(file_exists(storage_path('installed'))){
             $result = array();
             $orders = DB::table('orders')
@@ -56,13 +60,13 @@ class AppServiceProvider extends ServiceProvider
                 ->get();
 
             //products low in quantity
-            $lowInQunatity = DB::select(DB::raw('SELECT image_categories.path as image,products_description.products_name,inventory.products_id , inventory.stock , manage_min_max.min_level FROM `inventory` 
+            $lowInQunatity = DB::select(DB::raw('SELECT image_categories.path as image,products_description.products_name,inventory.products_id , inventory.stock , manage_min_max.min_level FROM `inventory`
             LEFT JOIN products on products.products_id = inventory.products_id
             LEFT JOIN images on products.products_image = images.id
             LEFT JOIN image_categories on image_categories.image_id = images.id
-            LEFT JOIN manage_min_max on inventory.products_id = manage_min_max.products_id 
-            LEFT JOIN products_description ON products_description.products_id = inventory.products_id 
-            WHERE inventory.stock < manage_min_max.min_level AND products_description.language_id = 1  
+            LEFT JOIN manage_min_max on inventory.products_id = manage_min_max.products_id
+            LEFT JOIN products_description ON products_description.products_id = inventory.products_id
+            WHERE inventory.stock < manage_min_max.min_level AND products_description.language_id = 1
             GROUP BY inventory.products_id ORDER BY manage_min_max.min_max_id DESC'));
 
             $languages = DB::table('languages')->get();
