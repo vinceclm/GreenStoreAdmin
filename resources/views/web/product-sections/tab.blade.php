@@ -9,7 +9,7 @@
                         <p>
                             @lang('website.WELCOME TO STORE DETAIL')
                         </p>
-                        <p>Start your modification here</p>
+                        <p>Test modification</p>
                     </div>
                 </div>
             </div>
