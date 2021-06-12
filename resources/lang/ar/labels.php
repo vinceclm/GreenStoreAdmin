@@ -13,6 +13,10 @@ return [
     |
     */
 
+
+    'MonthlyPay' => 'Monthly Pay in Arab',
+    'MonthlyPayPlaceholder' => 'Please enter your monthly pay in Arab.',
+
 	//links labels
 	'Location' => 'Location',
 	'login_text' => 'Sign in to start your session',

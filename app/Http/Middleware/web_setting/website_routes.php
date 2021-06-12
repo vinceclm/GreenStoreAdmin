@@ -22,7 +22,8 @@ class website_routes
                  ->where('value',1)
                  ->first();
         if($check == null){
-          return  redirect('not_allowed');
+            return 'from_website_routes';
+        //   return  redirect('not_allowed');
         }else{
           return $next($request);
         }

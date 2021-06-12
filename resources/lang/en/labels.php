@@ -536,13 +536,20 @@ return [
 	'DeleteCustomerMessage' => 'Customer has been deleted successfully!',
 
 	'FirstName' => 'First Name',
-	'FirstNameText' => 'Please enter first name.',
+    'FirstNameText' => 'Please enter first name.',
 	'LastName' => 'Last Name',
 	'lastNameText' => 'Please enter last name.',
 	'Gender' => 'Gender',
 	'Male' => 'Male',
 	'Female' => 'Female',
-	'PictureText' => 'Please upload small size image.',
+    'PictureText' => 'Please upload small size image.',
+
+    'MonthlyPay' => 'Monthly Pay',
+    'MonthlyPayPlaceholder' => 'Please enter your monthly pay.',
+    'DesiredLoanAmount' => 'Desired Loan Amount',
+    'DesiredLoanAmountPlaceholder' => 'Please enter your desired loan amount.',
+    'LengthOfPayment' => 'Length Of Payment',
+    'LengthOfPaymentPlaceholder' => 'Please enter your Length Of Payment.',
 
 	'DOBText' => 'Please enter date of birth.',
 	'Telephone' => 'Telephone',
@@ -2139,12 +2146,12 @@ return [
 	'Cart Page Settings'=>'Cart Page Settings',
 	'Contact Page Settings'=>'Contact Page Settings',
 	'Colors Settings'=>'Colors Settings',
-	'Product Page Settings'=>'Product Page Settings',	
+	'Product Page Settings'=>'Product Page Settings',
 	'Login Page Settings'=>'Login Page Settings',
 	'Login'=>'Login',
 	'News Page Settings'=>'News Page Settings',
 	'Banner Transition Settings'=>'Banner Transition Settings',
-	'Transition'=>'Transition',	
+	'Transition'=>'Transition',
 	'External_Link'=>'External Link',
 	'FavIcon'=>'FavIcon',
 	'Choose Favicon for website'=>'Choose Favicon for website.',
@@ -2236,7 +2243,7 @@ return [
 	'Banner Style 17'=>'Banner Style 17',
 	'Banner Style 18'=>'Banner Style 18',
 	'Banner Style 19'=>'Banner Style 19',
-	
+
 	'Right Slider with Thumbs'=>'Right Slider with Thumbs',
 	'Left Slider with Thumbs'=>'Left Slider with Thumbs',
 	'Constant Image'=>'Constant Image',
@@ -2409,7 +2416,7 @@ return [
 	'Cache Cleared Successfully'=>'Cache Cleared Successfully!',
 	'Clear cache after update your this settings'=>'Note: Clear cache after update your this settings',
 	'Language icon size should be 30x20'=>'Language icon size should be 30x20',
-	
+
 	// new labels
 
 'Choose start and end date'=>'Choose start and end date',

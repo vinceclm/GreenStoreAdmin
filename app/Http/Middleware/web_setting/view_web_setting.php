@@ -22,7 +22,8 @@ class view_web_setting
                  ->where('website_setting_view',1)
                  ->first();
         if($check == null){
-          return  redirect('not_allowed');
+            return 'from_web_setting';
+        //   return  redirect('not_allowed');
         }else{
           return $next($request);
         }
