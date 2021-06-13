@@ -23,6 +23,16 @@ class LoanController extends Controller
     }
 
     private function computeLoanAmount($monthlyPay, $loanAmount, $length) {
+        if(!$monthlyPay || !$loanAmount || !$length) {
+
+        return [
+            'loan_interest' =>  \number_format(0, 2) ,
+            'total_payable' => \number_format(0, 2) ,
+            'ammortization' => \number_format( 0, 2) ,
+            'max_allowed_amount' => \number_format(0, 2)
+        ];
+        }
+
         $INTEREST_RATE = 0.000281064133362452;
 
         $loanInterest = $loanAmount * $INTEREST_RATE * 30 * $length;
