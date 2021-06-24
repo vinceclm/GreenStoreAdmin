@@ -781,9 +781,8 @@ return [
 	'Quick View'=>'Quick View',
 	'Categories Text For Home Page'=>'Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
 	Morbi venenatis felis tempus feugiat maximus. ',
-	'WELCOME TO STORE'=>'WELCOME TO STORE',
-	'WELCOME TO STORE DETAIL'=>'Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-	Morbi venenatis felis tempus feugiat maximus.',
+	'WELCOME TO STORE'=>'WELCOME TO GREEN STORE',
+	'WELCOME TO STORE DETAIL'=>' ',
 	'Top Sellings Of the Week Detail'=>'Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
 	Morbi venenatis felis tempus feugiat maximus. ',
 	'Newest Products Detail'=>'Lorem ipsum dolor sit amet, consectetur adipiscing elit. 

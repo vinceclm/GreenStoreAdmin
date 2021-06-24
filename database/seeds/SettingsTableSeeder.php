@@ -141,9 +141,9 @@ class SettingsTableSeeder extends Seeder
             array (
                 'id' => 16,
                 'name' => 'website_logo',
-                'value' => 'images/media/2020/11/OimK016812.png',
-                'created_at' => '2018-04-27 00:00:00',
-                'updated_at' => '2020-11-16 12:29:55',
+                'value' => 'images/media/2021/06/U3Yre15312.png',
+                'created_at' => NULL,
+                'updated_at' => NULL,
             ),
             16 => 
             array (

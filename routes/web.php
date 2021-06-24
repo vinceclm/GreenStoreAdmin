@@ -50,6 +50,7 @@ Route::group(['namespace' => 'Web','middleware' => $middleware], function () {
 		Route::get('/profile', 'CustomersController@profile')->middleware('Customer');
 		Route::get('/change-password', 'CustomersController@changePassword')->middleware('Customer');
 		
+		Route::get('/coopmembership', 'CoopMembershipController@index');
 		Route::get('/wishlist', 'CustomersController@wishlist')->middleware('Customer');
 		Route::post('/updateMyProfile', 'CustomersController@updateMyProfile')->middleware('Customer');
 		Route::post('/updateMyPassword', 'CustomersController@updateMyPassword')->middleware('Customer');

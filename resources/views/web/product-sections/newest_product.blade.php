@@ -9,8 +9,8 @@
           <div class="pro-heading-title">
             <h2> @lang('website.NEW ARRIVAL')
             </h2>
-            <p>@lang('website.Newest Products Detail')
-               </p>
+            <!-- <p>@lang('website.Newest Products Detail')
+               </p> -->
           </div>
         </div>
       </div>
