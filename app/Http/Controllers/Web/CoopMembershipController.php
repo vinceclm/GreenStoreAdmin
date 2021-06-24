@@ -26,10 +26,21 @@ class CoopMembershipController extends Controller
         $result = array();
         $result['commonContent'] = $this->index->commonContent();
         $final_theme = $this->theme->theme();
-        
-        $first_name = Auth::user()->first_name;
-        $last_name = Auth::user()->last_name;
 
-        return view('web.coopmembership');  
+        $first_name = auth()->guard('customer')->user()->first_name;
+        $last_name = auth()->guard('customer')->user()->last_name;
+
+        /**
+         * Uncomment to show data
+         */
+        // dd([
+        //     'first_name' => $first_name,
+        //     'last_name' => $last_name
+        // ]);
+
+        return view('web.coopmembership', [
+            'result' => $result,
+            'final_theme' => $final_theme,
+        ]);
     }
 }
