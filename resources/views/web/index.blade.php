@@ -12,7 +12,7 @@
 
       <!-- Banners Content -->
       <!-- Products content -->
-
+      
       <?php
 
       $product_section_orders = json_decode($final_theme['product_section_order'], true);
