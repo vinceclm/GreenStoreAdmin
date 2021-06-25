@@ -25,7 +25,7 @@
     </li>
     <li class="list-group-item">
         <a class="nav-link" href="{{ URL::to('/coopmembership')}}">
-            <i class="fas fa-shield-check"></i>
+            <i class="fas fa-id-card"></i>
             @lang('Coop Membership')
         </a>
     </li>

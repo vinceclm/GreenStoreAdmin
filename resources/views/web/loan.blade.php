@@ -50,7 +50,7 @@
         </div>
 
         <div class="mb-3 text-right form-group container-fluid">
-            <button class="btn btn-success" type="submit">
+            <button class="btn btn-secondary" type="submit">
                 Compute
             </button>
         </div>

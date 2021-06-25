@@ -39,7 +39,7 @@
 						</li>
 						<li class="list-group-item">
 							<a class="nav-link" href="{{ URL::to('/coopmembership')}}">
-								<i class="fas fa-shield-check"></i>
+								<i class="fas fa-id-card"></i>
 								@lang('Coop Membership')
 							</a>
 						</li>
@@ -53,13 +53,29 @@
 
 			</div>
 			<div class="col-12 col-lg-9 ">
-					<div class="heading">
-							<h2>
-									@lang('website.Coop Membership')
-							</h2>
-							<hr >
-						</div>
+                <div class="heading">
+                    <h2>
+                        @lang('Coop Membership')
+                    </h2>
+                    <hr>
+                </div>
 
+                <div class="col-12 media-main">
+					<form>
+						<div class="form-group p-3">
+							<label class="mb-4" for="exampleFormControlFile1">Upload your Membership Form here:</label>
+							<input type="file" class="form-control-file" id="exampleFormControlFile1">
+							<div class="mt-3 text-right form-group container-fluid">
+								<button class="btn btn-secondary" type="submit">
+									Submit
+								</button>
+							</div>
+						</div>
+					</form>
+                </div>
+
+
+				
 	<!-- ............the end..... -->
 			</div>
 		</div>

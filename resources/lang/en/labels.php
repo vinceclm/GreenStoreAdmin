@@ -766,6 +766,7 @@ return [
 	'Tax' => 'Tax',
 	'DicountCoupon' => 'Dicount(Coupon)',
 	'Total' => 'Total',
+	'CoopMembership' => 'Coop Membership',
 	'ChangeStatus' => 'Change Status',
 	'PaymentStatus' => 'Payment Status',
 	'ChooseStatus' => 'Choose status',
