@@ -1,6 +1,5 @@
 <!-- Products content -->
 @if(!empty($result['commonContent']['categories']))
-<hr>
 <section class="categories-content pro-content">
     <div class="container">
       <div class="products-area">
@@ -9,10 +8,9 @@
              <div class="pro-heading-title">
                <h2> @lang('website.PRODUCT CATEGORIES')
                </h2>
-               <!-- <p>
+               <p>
                  @lang('website.Categories Text For Home Page')
-                </p> -->
-                
+                </p>
                </div>
              </div>
          </div>

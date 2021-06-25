@@ -7,8 +7,8 @@
             <h2> @lang('website.Top Selling of the Week')
 
             </h2>
-            <!-- <p>
-              @lang('website.Top Sellings Of the Week Detail')</p> -->
+            <p>
+              @lang('website.Top Sellings Of the Week Detail')</p>
           </div>
         </div> 
       </div>

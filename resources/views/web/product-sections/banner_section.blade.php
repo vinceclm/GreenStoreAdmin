@@ -1,6 +1,6 @@
 <!-- Banners Content -->
-<!-- <section class="banners-content">
+<section class="banners-content">
 
-  <?php  // echo $final_theme['banner']; ?>
+  <?php  echo $final_theme['banner']; ?>
 
-</section> -->
+</section>
