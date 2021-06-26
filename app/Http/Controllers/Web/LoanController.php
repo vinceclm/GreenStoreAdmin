@@ -32,8 +32,8 @@ class LoanController extends Controller
             'max_allowed_amount' => \number_format(0, 2)
         ];
         }
-
-        $INTEREST_RATE = 0.000281064133362452;
+        $m = 2.66666666 * (10 ** -7);
+        $INTEREST_RATE = ($m * $length) + 0.00028106413336252;
 
         $loanInterest = $loanAmount * $INTEREST_RATE * 30 * $length;
         $totalPayable = $loanAmount + $loanInterest;
