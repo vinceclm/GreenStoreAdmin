@@ -16,6 +16,7 @@ else{
 Route::get('/maintance','Web\IndexController@maintance');
 
 Route::get('/loan', 'Web\LoanController@index')->middleware('Customer');
+Route::get('/loan/apply', 'Web\LoanController@apply')->middleware('Customer');
 
 Route::group(['namespace' => 'Web','middleware' => ['installer']], function () {
 Route::get('/login', 'CustomersController@login');

@@ -63,10 +63,31 @@ class LoanController extends Controller
         return view('web.loan', [
             'result' => $result,
             'final_theme' => $final_theme,
-            'monthly_pay' => $monthlyPay,2 ,
-            'desired_loan_amount' => $desiredLoanAmount, 2 ,
+            'monthly_pay' => $monthlyPay,
+            'desired_loan_amount' => $desiredLoanAmount,
             'length_of_payment' => $lengthOfPayment,
             'loan_data' => $loanData
+        ]);
+    }
+
+    public function apply(Request $request) {
+        if($request->input('monthlyPay') == '')
+        return \redirect('/loan');
+
+        $result = array();
+        $result['commonContent'] = $this->index->commonContent();
+        $final_theme = $this->theme->theme();
+
+        $monthlyPay = $request->input('monthlyPay');
+        $desiredLoanAmount = $request->input('desiredLoanAmount');
+        $lengthOfPayment = $request->input('lengthOfPayment');
+
+        return view('web.loan-application', [
+            'result' => $result,
+            'final_theme' => $final_theme,
+            'monthly_pay' => $monthlyPay,
+            'desired_loan_amount' => $desiredLoanAmount,
+            'length_of_payment' => $lengthOfPayment,
         ]);
     }
 }

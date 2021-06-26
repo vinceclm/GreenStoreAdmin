@@ -4,7 +4,6 @@
 <div class="container align-items-center py-3">
 
     <form name="signup" class="form-validate w-100" action="{{ URL::to('/loan')}}" method="get">
-        {{csrf_field()}}
         <div class="form-group mb-3">
             <div class="col-12">
                 <label for="inlineFormInputGroup">
@@ -89,6 +88,20 @@
             </div>
         </div>
 
+        @if ($monthly_pay != '' && $desired_loan_amount != '' && $length_of_payment != '')
+        <div class="mb-3 text-right form-group container-fluid">
+            <form action="/loan/apply" method="get">
+                @csrf
+                <input type="hidden" name="monthlyPay" value="{{$monthly_pay}}">
+                <input type="hidden" name="desiredLoanAmount" value="{{$desired_loan_amount}}">
+                <input type="hidden" name="lengthOfPayment" value="{{$length_of_payment}}">
+                <button class="btn btn-secondary" type="submit">
+                    Apply for this Loan
+                </button>
+            </form>
+        </div>
+
+        @endif
 
     </div>
 </div>
