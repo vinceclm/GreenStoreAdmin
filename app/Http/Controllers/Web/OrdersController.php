@@ -53,6 +53,20 @@ class OrdersController extends Controller
         $this->theme = new ThemeController();
     }
 
+    private function generateAddressLabel($address) {
+
+        $label =
+        $address->firstname. ', ' . $address->lastname. ', ' .
+        $address->street. ', ' . $address->city. ', ' .
+        $address->zone_name. ', ' . $address->country_name. ', ' .
+        $address->postcode;
+
+        return [
+            'label' => $label,
+            'id' => $address->address_id
+        ];
+    }
+
     //test stripe
     public function stripeForm(Request $request)
     {
@@ -70,7 +84,7 @@ class OrdersController extends Controller
     }
     //checkout
     public function checkout(Request $request)
-    {   
+    {
         $currency_symbol = session('symbol_left') ? session('symbol_left') : session('symbol_right') ;
         $currency  = DB::table('currencies')->where('symbol_left',$currency_symbol)->orwhere('symbol_right',$currency_symbol)->first();
         $title = array('pageTitle' => Lang::get('website.Checkout'));
@@ -81,7 +95,7 @@ class OrdersController extends Controller
         $result['cart'] = $this->cart->myCart($result);
         $result['currency_value'] = $currency ? $currency->value : 1;
         session(['banktransfer'=> '']);
-        
+
         if (count($result['cart']) == 0) {
             return redirect("/");
         } else {
@@ -114,11 +128,11 @@ class OrdersController extends Controller
                 } else {
                     $customers_id = auth()->guard('customer')->user() ? auth()->guard('customer')->user() ->id : "";
                 }
-                
+
                 if(!empty($customers_id)){
                     $usedcouponcount = 0 ;
                     $count_of_coupon_used = DB::table('orders')->select('coupon_code')->where('coupon_code','!=',"")->where('customers_id',$customers_id)->get();
-                    
+
                     foreach($count_of_coupon_used as $couponcount){
                         $coupon_array = json_decode($couponcount->coupon_code);
                         foreach($coupon_array as $coupon_array_item){
@@ -137,7 +151,7 @@ class OrdersController extends Controller
                             return redirect('viewcart');
                         }
                     }
-                    
+
                 }
                 $session_coupon_data = session('coupon');
                 session(['coupon' => array()]);
@@ -159,22 +173,21 @@ class OrdersController extends Controller
             }
 
             if(auth()->guard('customer')->check()){
-                
+
                 $all_addresses = $this->shipping->getShippingAddress(array());
-                
+                $address_choices = [];
                 if (!empty($all_addresses) and count($all_addresses)>0) {
-                    foreach($all_addresses as $default_address){
-                        if($default_address->default_address==1){                        
-                            $default_address->delivery_phone = auth()->guard('customer')->user()->phone;
-                            $address = $default_address;
+                    foreach($all_addresses as $address_item){
+                         if($request->selected_address == $address_item->address_id || ($address_item->default_address==1 && \count($address) == 0)){
+                            $address_item->delivery_phone = auth()->guard('customer')->user()->phone;
+                            $address = $address_item;
+                            session(['shipping_address' => $address]);
                         }
+                        \array_push($address_choices,$this->generateAddressLabel($address_item));
                     }
-                    
+
+                    $result['address_choices'] = $address_choices;
                 }
-            }
-            
-            if (empty(session('shipping_address'))) {
-                session(['shipping_address' => $address]);
             }
 
             //shipping counties
@@ -200,7 +213,7 @@ class OrdersController extends Controller
             $result['shipping_methods'] = $this->shipping_methods();
 
             //payment methods
-            $result['payment_methods'] = $this->getPaymentMethods();           
+            $result['payment_methods'] = $this->getPaymentMethods();
 
             //dd($result['cart']);
 
@@ -274,23 +287,23 @@ class OrdersController extends Controller
                             session(['coupon_usage_per_user_limit'=>0]);
                         }
                     }
-                    
+
 
                     $price += $products->final_price * $products->customers_basket_quantity;
                 }
-                
+
                 if($price  < $result['commonContent']['settings']['min_order_price']){
                     session(['min_order_price' => 1]);
                     session(['min_order_price_value' => $result['commonContent']['settings']['min_order_price']]);
                     return redirect('viewcart');
                 }
-                
+
                 session(['products_price' => $price]);
             }
 
             //breaintree token
             $token = $this->generateBraintreeTokenWeb();
-            session(['braintree_token' => $token]);            
+            session(['braintree_token' => $token]);
 
             return view("web.checkout", ['title' => $title, 'final_theme' => $final_theme])->with('result', $result);
         }
@@ -420,7 +433,7 @@ class OrdersController extends Controller
                 $environment = 'production';
             }
             //for token please check braintree.php file
-            require_once app_path('braintree/index.php');          
+            require_once app_path('braintree/index.php');
 
             $braintree_merchant_id = $payments_setting['merchant_id']->value;
             $braintree_public_key = $payments_setting['public_key']->value;
@@ -432,7 +445,7 @@ class OrdersController extends Controller
         }
         return $clientToken;
 
-        
+
 
     }
 
@@ -454,8 +467,8 @@ class OrdersController extends Controller
         $title = array('pageTitle' => Lang::get('website.Thank You'));
         $bankdetail = array();
         if(!empty(session('banktransfer')) and session('banktransfer') == 'yes'){
-            $payments_setting = $this->order->payments_setting_for_directbank();    
-            
+            $payments_setting = $this->order->payments_setting_for_directbank();
+
 
             $bankdetail = array(
                 'account_name' => $payments_setting['account_name']->value,
@@ -467,7 +480,7 @@ class OrdersController extends Controller
                 'swift' => $payments_setting['swift']->value,
             );
         }
-        
+
         $final_theme = $this->theme->theme();
         $result = $this->order->orders($request);
         return view("web.thankyou", ['title' => $title, 'final_theme' => $final_theme, 'bankdetail'=>$bankdetail])->with('result', $result);
@@ -478,7 +491,7 @@ class OrdersController extends Controller
     {
         $title = array('pageTitle' => Lang::get("website.My Orders"));
         $final_theme = $this->theme->theme();
-        $result = $this->order->orders($request);       
+        $result = $this->order->orders($request);
         return view("web.orders", ['title' => $title, 'final_theme' => $final_theme])->with('result', $result);
     }
 
@@ -490,13 +503,13 @@ class OrdersController extends Controller
         $final_theme = $this->theme->theme();
         // $result = $this->order->viewOrder($request, $id);
         //orders data
-        $ordersData = $this->Coreorder->detail($request);        
+        $ordersData = $this->Coreorder->detail($request);
 
         // current order status
-        $orders_status_history = $this->Coreorder->currentOrderStatus($request);  
+        $orders_status_history = $this->Coreorder->currentOrderStatus($request);
 
-        //all statuses 
-        $orders_status = $this->Coreorder->orderStatuses();  
+        //all statuses
+        $orders_status = $this->Coreorder->orderStatuses();
         $ordersData['orders_status'] = $orders_status;
         $ordersData['orders_status_history'] = $orders_status_history;
         $result['commonContent'] = $this->index->commonContent();
@@ -808,7 +821,7 @@ class OrdersController extends Controller
         /**   END CASH ON DELIVERY**/
         /*************************/
 
-      
+
         /*************************/
 
         /**   INSTAMOJO**/
@@ -854,7 +867,7 @@ class OrdersController extends Controller
         /*************************/
 
         $payments_setting = $this->order->payments_setting_for_razorpay();
-        
+
         if ($payments_setting['RAZORPAY_SECRET']->environment == '0') {
             $razorpay_enviroment = 'Test';
         } else {
@@ -873,7 +886,7 @@ class OrdersController extends Controller
         );
 
         $payments_setting = $this->order->payments_setting_for_paytm();
-        
+
 
         if ($payments_setting['paytm_mid']->environment == '0') {
             $paytm_enviroment = 'Test';
@@ -890,7 +903,7 @@ class OrdersController extends Controller
             'payment_method' => $payments_setting['paytm_mid']->payment_method,
         );
 
-        $payments_setting = $this->order->payments_setting_for_directbank();     
+        $payments_setting = $this->order->payments_setting_for_directbank();
 
         if ($payments_setting['account_name']->environment == '0') {
             $enviroment = 'Live';
@@ -908,7 +921,7 @@ class OrdersController extends Controller
             'payment_method' => $payments_setting['account_name']->payment_method,
         );
 
-        $payments_setting = $this->order->payments_setting_for_paystack();   
+        $payments_setting = $this->order->payments_setting_for_paystack();
         if ($payments_setting['secret_key']->environment == '0') {
             $enviroment = 'Test';
         } else {
@@ -924,7 +937,7 @@ class OrdersController extends Controller
             'payment_method' => $payments_setting['secret_key']->payment_method,
         );
 
-        $payments_setting = $this->order->payments_setting_for_midtrans();  
+        $payments_setting = $this->order->payments_setting_for_midtrans();
 
         if ($payments_setting['merchant_id']->environment == '0') {
             $enviroment = 'Test';
@@ -939,9 +952,9 @@ class OrdersController extends Controller
             'name' => $payments_setting['merchant_id']->name,
             'active' => $payments_setting['merchant_id']->status,
             'payment_method' => $payments_setting['merchant_id']->payment_method,
-        );        
+        );
 
-        
+
 
         $result[0] = $braintree;
         $result[1] = $stripe;
@@ -1033,7 +1046,7 @@ class OrdersController extends Controller
         if(Auth::guard('customer')->check()){
             $email = auth()->guard('customer')->user()->email;
         }else{
-            $email = session('shipping_address')->email;          
+            $email = session('shipping_address')->email;
         }
 
         $url = $env_url;
@@ -1126,13 +1139,13 @@ class OrdersController extends Controller
 
     //updatestatus
     public function updatestatus(Request $request)
-    {   
+    {
         //  dd($request->orders_status);
         if (!empty($request->orders_id)) {
             $date_added = date('Y-m-d h:i:s');
             $comments = '';
             $ordersCheck = $this->order->ordersCheck($request);
-            
+
             if (count($ordersCheck) > 0) {
 
                 $orders_history_id = $this->Coreorder->updateRecord($request);
@@ -1157,7 +1170,7 @@ class OrdersController extends Controller
         if(Auth::guard('customer')->check()){
             $email = auth()->guard('customer')->user()->email;
         }else{
-            $email = session('shipping_address')->email;          
+            $email = session('shipping_address')->email;
         }
         $payments_setting = $this->order->payments_setting_for_paystack();
         $amount = number_format((float) session('total_price') + 0, 2) ;
@@ -1180,7 +1193,7 @@ class OrdersController extends Controller
 		curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
         $response = curl_exec ($ch);
-        
+
         if ($response === false) {
             throw new \Exception('CURL Error: ' . curl_error($ch), curl_errno($ch));
         }
@@ -1190,8 +1203,8 @@ class OrdersController extends Controller
 		// if ($response) {
 		// 	$result = json_decode($response, true);
         // }
-        
-       
+
+
 		print_r($response);
     }
 
@@ -1217,19 +1230,19 @@ class OrdersController extends Controller
            // dd($result);
 
             if($result){
-            //message    
+            //message
             session(['paymentResponseData'=> $message]);
 
             if(!empty($result['data']) and count($result['data'])>0){
                 //something came in
                 if($result['data']['status'] == 'success'){
                 // the transaction was successful, you can deliver value
-                /* 
-                @ also remember that if this was a card transaction, you can store the 
-                @ card authorization to enable you charge the customer subsequently. 
-                @ The card authorization is in: 
+                /*
+                @ also remember that if this was a card transaction, you can store the
+                @ card authorization to enable you charge the customer subsequently.
+                @ The card authorization is in:
                 @ $result['data']['authorization']['authorization_code'];
-                @ PS: Store the authorization with this email address used for this transaction. 
+                @ PS: Store the authorization with this email address used for this transaction.
                 @ The authorization will only work with this particular email.
                 @ If the user changes his email on your system, it will be unusable
                 */
@@ -1261,11 +1274,11 @@ class OrdersController extends Controller
             session(['paymentResponseData'=> $message]);
         }
 
-        
-        
+
+
          return redirect('checkout');
     }
-    
+
 
 
 }
