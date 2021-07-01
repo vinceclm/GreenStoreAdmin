@@ -457,6 +457,10 @@ return [
 
 	'Pay'=>'Pay',
 
+	'GCash No.'=>'GCash No.',
+
+	'Bank Name'=>'Bank Name',
+
 	'Your location does not support this'=>'Your location does not support ',
 
 	'Please select your shipping method'=>'Please select your shipping method.',
