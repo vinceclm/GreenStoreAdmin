@@ -236,20 +236,70 @@ return [
 
 	'First Name'=>'First Name',
 
+	'Middle Name'=>'Middle Name',
+
 	'Last Name'=>'Last Name',
 
 	'Email Adrress'=>'Email Address',
 
+	'Place of Birth'=>'Place of Birth',
+
+	'Date of Birth'=>'Date of Birth',
+
+	'Complete Address'=>'Complete Address',
+
+	'Educational Attainment'=>'Educational Attainment',
+
+	'Degree/Course' => 'Degree/Course',
+
+	'Monthly Income'=>'Monthly Income',
+
+	'Other Sources of Income'=>'Other Sources of Income',
+
+	'SSS No.'=>'SSS No.',
+
+	'TIN No.'=>'TIN No.',
+
+	'Department Area' => 'Department Area',
+
+	'Local No.'=>'Local No.',
+
+	'Cellphone No.'=>'Cellphone No.',
+
+	'Contact No.'=>'Contact No.',
+
 	'Please enter your valid email address'=>'Please enter your valid email address',
 
 	'Gender'=>'Gender',
-
+	
 	'Please select your gender'=>'Please select your gender',
+
+	'Birthdate' => 'Birthdate',
+
+	'Occupation' => 'Occupation',
+	
+	'Employer'=>'Employer',
+
+	'Monthly Salary'=>'Monthly Salary',
+
+	'Office Address' => 'Office Address',
+
+	'Home Address' => 'Home Address',
+
+	'Father'=>'Father',
+
+	'Mother'=>'Mother',
+
+	'Legal Beneficiaries'=>'Legal Beneficiaries',
+
+	'Banking Information'=>'Banking Information',
+
+	'Required Documents'=>'Required Documents',
 
 	'Picture'=>'Picture',
 
 	'Password'=>'Password',
-
+	
 	'Please enter your password'=>'Please enter your password',
 
 	'Confirm Password'=>'Confirm Password',
@@ -406,6 +456,10 @@ return [
 	'Shipping Detail'=>'Shipping Detail',
 
 	'Pay'=>'Pay',
+
+	'GCash No.'=>'GCash No.',
+
+	'Bank Name'=>'Bank Name',
 
 	'Your location does not support this'=>'Your location does not support ',
 
@@ -681,6 +735,10 @@ return [
 
 	'Featured News'=>'Featured News',
 
+	'FEATURED PRODUCTS'=> 'FEATURED PRODUCTS',
+
+	'Featured Products Detail'=>'Featured Products Detail',
+
 	'Upload Profile Photo'=>'Upload Profile Photo',
 
 	'Choose...'=>'Choose...',
@@ -870,6 +928,9 @@ return [
 	'or'=>'OR',
 	'Or'=>'OR',
 	'orders'=>'Orders',
+
+	'Information Sheet'=>'Information Sheet',	
+	'Member Information'=>'Member Information',
 
 	//new labels
 	'back_to_top'=>'Back to top',

@@ -157,7 +157,7 @@
 
                         <div class="form-row">
                             <div class="form-group col-md-6">
-                                <label for="inputfirstname"><span class="star">*</span>@lang('website.First
+                                <label for="inputfirstname"><span class="star">*</span>@lang('First
                                     Name')</label>
                                 <input type="text" name="entry_firstname" class="form-control field-validate"
                                     id="entry1_firstname" @if(!empty($result['editAddress']))
@@ -226,7 +226,7 @@
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6">
-                                <label for="inputaddress"><span class="star">*</span> @lang('website.Zip/Postal
+                                <label for="inputaddress"><span class="star">*</span> @lang('Zip/Postal
                                     Code')</label>
                                 <input type="text" name="entry_postcode" class="form-control field-validate"
                                     id="entry_postcode1" @if(!empty($result['editAddress']))
