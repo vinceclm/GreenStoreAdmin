@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Models\Core\CoopMembership;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class Customer extends Authenticatable
@@ -38,5 +39,9 @@ class Customer extends Authenticatable
 	protected $primaryKey = 'id';
 
 	//public $table = true;
+
+    public function membership() {
+        return $this->hasOne(CoopMembership::class, 'user_id');
+    }
 
 }

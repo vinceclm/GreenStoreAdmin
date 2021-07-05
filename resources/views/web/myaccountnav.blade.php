@@ -1,4 +1,4 @@
-<ul class="list-group">
+<ul class="list-group mb-3">
     <li class="list-group-item">
         <a class="nav-link" href="{{ URL::to('/profile')}}">
             <i class="fas fa-user"></i>
@@ -24,7 +24,7 @@
         </a>
     </li>
     <li class="list-group-item">
-        <a class="nav-link" href="{{ URL::to('/coopmembership')}}">
+        <a class="nav-link" href="{{ URL::to('/coop-membership')}}">
             <i class="fas fa-id-card"></i>
             @lang('Coop Membership')
         </a>

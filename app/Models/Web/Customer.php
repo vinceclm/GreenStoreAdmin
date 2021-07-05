@@ -152,9 +152,9 @@ class Customer extends Model
 
             $existUser = DB::table('users')
                 ->Where('users.email', '=', $email)->get();
-    
+
             if (count($existUser) > 0) {
-                
+
                 $customers_id = $existUser[0]->id;
 
                 //update data of customer
@@ -184,7 +184,7 @@ class Customer extends Model
                     'user_id' => $customers_id,
                     'fb_id' => $social_id,
                 ]);
-                
+
             }
         }
 

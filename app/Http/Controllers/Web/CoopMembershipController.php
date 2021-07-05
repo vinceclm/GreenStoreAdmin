@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Web;
 
+use App\CoopMembershipMeta;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Core\CoopMembership;
 use App\Models\Web\Index;
 use App\Models\Web\Customer;
 use App\Models\Web\Languages;
@@ -27,20 +29,38 @@ class CoopMembershipController extends Controller
         $result['commonContent'] = $this->index->commonContent();
         $final_theme = $this->theme->theme();
 
-        $first_name = auth()->guard('customer')->user()->first_name;
-        $last_name = auth()->guard('customer')->user()->last_name;
+        try {
+            $registration_meta = auth()->guard('customer')->user()->membership->metas->last();
+        } catch (\Throwable $th) {
+            $registration_meta = CoopMembershipMeta::defaultMeta();
+        }
+        // dd($registration_meta);
 
-        /**
-         * Uncomment to show data
-         */
-        // dd([
-        //     'first_name' => $first_name,
-        //     'last_name' => $last_name
-        // ]);
-
-        return view('web.coopmembership', [
+        return view('web.coop-membership.register', [
             'result' => $result,
             'final_theme' => $final_theme,
+            'meta' => $registration_meta
         ]);
+    }
+
+    public function register(Request $request) {
+        $coop_membership = auth()->guard('customer')->user()->membership;
+
+        if(!$coop_membership) {
+            $customer_user_id = auth()->guard('customer')->user()->id;
+            $coop_membership = new CoopMembership(['user_id' => $customer_user_id]);
+            $coop_membership->save();
+        }
+
+        $coop_membership_meta = new CoopMembershipMeta([
+            'coop_membership_id' => $coop_membership->id,
+            'member_information' => $request->member_information,
+            'family_profile' => $request->family_profile,
+            'banking_information' => $request->banking_information
+        ]);
+
+        if($coop_membership_meta->save()) {
+            return \redirect('/coop-membersip');
+        }
     }
 }

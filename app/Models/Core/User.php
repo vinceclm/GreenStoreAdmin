@@ -65,6 +65,7 @@ class User extends Authenticatable
             'password'   => Hash::make($data['password'])
         ]);
     }
+
     public static function getCustomers(){
       $user = User::sortable(['id'=>'ASC'])
           ->LeftJoin('user_to_address', 'user_to_address.user_id' ,'=', 'users.id')
@@ -83,4 +84,7 @@ class User extends Authenticatable
 
     }
 
+    public function membership() {
+        return 'hello';
+    }
 }
