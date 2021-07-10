@@ -17,6 +17,8 @@ class Customers extends Model
     //
     use Sortable;
     protected $table = 'customers';
+    protected $hidden = ['password'];
+
     public function address_book(){
 
         return $this->belongsTo('App\address_book');
@@ -36,6 +38,10 @@ class Customers extends Model
 
     public function images(){
         return $this->belongsTo('App\Images');
+    }
+
+    public function membership() {
+        return $this->hasOne(CoopMembership::class, 'user_id');
     }
 
     public $sortableAs = ['entry_street_address','entry_firstname','entry_company'];

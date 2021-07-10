@@ -58,9 +58,8 @@ class CoopMembershipController extends Controller
             'family_profile' => $request->family_profile,
             'banking_information' => $request->banking_information
         ]);
+        $coop_membership_meta->save();
 
-        if($coop_membership_meta->save()) {
-            return \redirect('/coop-membersip');
-        }
+        return \redirect('/coop-membership');
     }
 }

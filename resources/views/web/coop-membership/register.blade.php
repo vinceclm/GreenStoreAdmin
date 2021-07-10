@@ -14,6 +14,7 @@
 
                 @include('web.myaccountnav')
 
+
             </div>
             <div class="col-12 col-lg-9 ">
                 <form action="{{ url('/coop-membership/register') }}" method="post">
@@ -53,8 +54,8 @@
                         <div class="container-fluid">
                             <div class="form-row">
                                 <div class="form-group col-md-6">
-                                    <label for="placeOfBirth" class="col-form-label">@lang('website.Place of
-                                        Birth')</label>
+                                    <label for="placeOfBirth" class="col-form-label">
+                                        @lang('website.Place of Birth')</label>
                                     <input type="text" {{-- 'required' --}}
                                         placeholder="@lang('website.Place of Birth')"
                                         class="form-control field-validate" id="placeOfBirth"
@@ -62,8 +63,8 @@
                                         value="{{ $meta['member_information']['place_of_birth'] }}">
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label for="dateOfBirth" class="col-form-label">@lang('website.Date of
-                                        Birth')</label>
+                                    <label for="dateOfBirth" class="col-form-label">
+                                        @lang('website.Date of Birth')</label>
                                     <input type="date" {{-- 'required' --}} name="member_information[date_of_birth]"
                                         placeholder="@lang('website.Date of Birth')" class="form-control field-validate"
                                         id="dateOfBirth" value="{{ $meta['member_information']['date_of_birth'] }}">
@@ -73,8 +74,8 @@
 
                         <div class="container-fluid">
                             <div class="form-group">
-                                <label for="completeAddress" class="col-form-label">@lang('website.Complete
-                                    Address')</label>
+                                <label for="completeAddress" class="col-form-label">
+                                    @lang('website.Complete Address')</label>
                                 <input type="text" {{-- 'required' --}} name="member_information[complete_address]"
                                     class="form-control field-validate" id="inputName"
                                     placeholder="@lang('website.Complete Address')" id="dateOfBirth"
@@ -85,8 +86,8 @@
                         <div class="container-fluid">
                             <div class="form-row">
                                 <div class="form-group col-md-6">
-                                    <label for="educationalAttainment" class="col-form-label">@lang('website.Educational
-                                        Attainment')</label>
+                                    <label for="educationalAttainment" class="col-form-label">\
+                                        @lang('website.Educational Attainment')</label>
                                     <input type="text" {{-- 'required' --}}
                                         name="member_information[educational_attainment]"
                                         placeholder="@lang('website.Educational Attainment')"
@@ -106,16 +107,16 @@
                         <div class="container-fluid">
                             <div class="form-row">
                                 <div class="form-group col-md-6">
-                                    <label for="monthlyIncome" class="col-form-label">@lang('website.Monthly
-                                        Income')</label>
+                                    <label for="monthlyIncome" class="col-form-label">
+                                        @lang('website.Monthly Income')</label>
                                     <input type="text" {{-- 'required' --}} name="member_information[monthly_income]"
                                         placeholder="@lang('website.Monthly Income')"
                                         class="form-control field-validate" id="monthlyIncome" id="dateOfBirth"
                                         value="{{ $meta['member_information']['monthly_income'] }}">
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label for="incomeSources" class="col-form-label">@lang('website.Other Sources of
-                                        Income')</label>
+                                    <label for="incomeSources" class="col-form-label">
+                                        @lang('website.Other Sources of Income')</label>
 
                                     <input type="text" {{-- 'required' --}} name="member_information[income_source]"
                                         placeholder="@lang('website.Other Sources of Income')"
@@ -146,8 +147,8 @@
                         <div class="container-fluid">
                             <div class="row">
                                 <div class="form-group col-md-4">
-                                    <label for="department" class="col-form-label">@lang('website.Department
-                                        Area')</label>
+                                    <label for="department" class="col-form-label">
+                                        @lang('website.Department Area')</label>
                                     <input type="text" {{-- 'required' --}} name="member_information[department]"
                                         placeholder="@lang('website.Department Area')"
                                         class="form-control field-validate" id="department" id="dateOfBirth"
@@ -161,8 +162,8 @@
                                         value="{{ $meta['member_information']['local_no'] }}">
                                 </div>
                                 <div class="form-group col-md-4">
-                                    <label for="cellphoneNo" class="col-form-label">@lang('website.Cellphone
-                                        No.')</label>
+                                    <label for="cellphoneNo" class="col-form-label">
+                                        @lang('website.Cellphone No.')</label>
                                     <input type="text" {{-- 'required' --}} name="member_information[cellphone_no]"
                                         placeholder="@lang('website.Cellphone No.')" class="form-control field-validate"
                                         id="cellphoneNo" id="dateOfBirth"
@@ -186,8 +187,8 @@
                         <div class="container-fluid">
                             <div class="row">
                                 <div class="form-group col-md-6">
-                                    <label for="spouseContactNo" class="col-form-label">@lang('website.Contact
-                                        No.')</label>
+                                    <label for="spouseContactNo" class="col-form-label">
+                                        @lang('website.Contact No.')</label>
                                     <input type="text" {{-- 'required' --}} placeholder="@lang('website.Contact No.')"
                                         class="form-control field-validate" id="spouseContactNo"
                                         name="family_profile[spouse][contact_no]"
@@ -234,8 +235,8 @@
                                         value="{{ $meta['family_profile']['spouse']['employer'] }}">
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label for="spouseMonthlyIncome" class="col-form-label">@lang('website.Monthly
-                                        Salary')</label>
+                                    <label for="spouseMonthlyIncome" class="col-form-label">
+                                        @lang('website.Monthly Salary')</label>
                                     <input type="text" {{-- 'required' --}}
                                         placeholder="@lang('website.Monthly Salary')"
                                         class="form-control field-validate" id="spouseMonthlyIncome"

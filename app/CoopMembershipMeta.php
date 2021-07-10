@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class CoopMembershipMeta extends Model
 {
     protected $table = 'coop_membership_metas';
-    protected $fillable = ['member_information', 'coop_membership_id'];
+    protected $fillable = ['member_information', 'family_profile', 'banking_information', 'coop_membership_id'];
     protected $casts = [
         'member_information' => 'array',
         'family_profile' => 'array',

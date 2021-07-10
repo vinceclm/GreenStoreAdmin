@@ -255,6 +255,7 @@ Route::group(['middleware' => ['installer']], function () {
         Route::post('/editaddress', 'CustomersController@editaddress')->middleware('edit_customer');
         Route::post('/updateaddress', 'CustomersController@updateaddress')->middleware('edit_customer');
         Route::post('/deleteAddress', 'CustomersController@deleteAddress')->middleware('edit_customer');
+        Route::get('/membership/{id}', 'CustomersController@viewCoopMembership');
     });
 
     Route::group(['prefix' => 'admin/countries', 'middleware' => 'auth', 'namespace' => 'AdminControllers'], function () {

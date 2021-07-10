@@ -1,6 +1,8 @@
 <?php
 namespace App\Http\Controllers\AdminControllers;
 
+use App\CoopMembershipMeta;
+use App\Customer;
 use App\Models\Core\Customers;
 use App\Models\Core\Images;
 use App\Models\Core\Setting;
@@ -87,7 +89,6 @@ class CustomersController extends Controller
         $this->validate($request, [
             'customers_firstname' => 'required',
             'customers_lastname' => 'required',
-           
             'customers_telephone' => 'required',
             'email' => 'required|email',
             'password' => 'required',
@@ -234,7 +235,7 @@ class CustomersController extends Controller
 
         $this->Customers->updaterecord($customer_data,$user_id,$user_data);
         return redirect('admin/customers/address/display/'.$user_id);
-        
+
     }
 
     public function delete(Request $request){
@@ -269,5 +270,22 @@ class CustomersController extends Controller
       $result['commonContent'] = $this->Setting->commonContent();
 
       return view("admin.customers.index",$title)->with('result', $result)->with('customers', $customerData)->with('filter',$filter)->with('parameter',$parameter);
+    }
+
+    public function viewCoopMembership(Request $request) {
+        $title =  array('pageTitle' => Lang::get("labels.ViewMembership"));;
+        $result = array();
+        $customer_user = Customer::find($request->id);
+        $result['commonContent'] = $this->Setting->commonContent();
+
+        try {
+            $membership_id = $customer_user->membership->id;
+            $membership_meta = $customer_user->membership->metas->last();
+            // dd($membership_meta);
+            return view("admin.customers.membership.view",$title)->with('data', $membership_meta)->with('result', $result)->with('membership_id', $membership_id);
+        } catch (\Throwable $th) {
+            return view("admin.customers.membership.not_found")->with('result', $result);
+        }
+
     }
 }
